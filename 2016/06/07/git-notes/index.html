@@ -1,0 +1,815 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="git,cli,tools," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="直至某个特定提交，所有文件列表1$ git ls-tree --name-only -r &amp;lt;commit-ish&amp;gt;
+列出冲突文件1$ git diff --name-only --diff-filter=U
+一次提交中所有改变的文件1$ git diff-tree --no-commit-id --name-only -r &amp;lt;commit-ish&amp;gt;
+列出所有合并到了mast">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git命令收集">
+<meta property="og:url" content="http://localhost:4000/blog/2016/06/07/git-notes/index.html">
+<meta property="og:site_name" content="YC">
+<meta property="og:description" content="直至某个特定提交，所有文件列表1$ git ls-tree --name-only -r &amp;lt;commit-ish&amp;gt;
+列出冲突文件1$ git diff --name-only --diff-filter=U
+一次提交中所有改变的文件1$ git diff-tree --no-commit-id --name-only -r &amp;lt;commit-ish&amp;gt;
+列出所有合并到了mast">
+<meta property="og:updated_time" content="2016-06-28T07:13:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git命令收集">
+<meta name="twitter:description" content="直至某个特定提交，所有文件列表1$ git ls-tree --name-only -r &amp;lt;commit-ish&amp;gt;
+列出冲突文件1$ git diff --name-only --diff-filter=U
+一次提交中所有改变的文件1$ git diff-tree --no-commit-id --name-only -r &amp;lt;commit-ish&amp;gt;
+列出所有合并到了mast">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://localhost:4000/blog/2016/06/07/git-notes/"/>
+
+  <title> git命令收集 | YC </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">YC</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Keep writing.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                git命令收集
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-07T18:59:47+08:00" content="2016-06-07">
+              2016-06-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="直至某个特定提交，所有文件列表"><a href="#直至某个特定提交，所有文件列表" class="headerlink" title="直至某个特定提交，所有文件列表"></a>直至某个特定提交，所有文件列表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git ls-tree --name-only -r &lt;commit-ish&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="列出冲突文件"><a href="#列出冲突文件" class="headerlink" title="列出冲突文件"></a>列出冲突文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff --name-only --diff-filter=U</span><br></pre></td></tr></table></figure>
+<h3 id="一次提交中所有改变的文件"><a href="#一次提交中所有改变的文件" class="headerlink" title="一次提交中所有改变的文件"></a>一次提交中所有改变的文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff-tree --no-commit-id --name-only -r &lt;commit-ish&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="列出所有合并到了master的分支"><a href="#列出所有合并到了master的分支" class="headerlink" title="列出所有合并到了master的分支"></a>列出所有合并到了master的分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master &amp;&amp; git branch --merged</span><br></pre></td></tr></table></figure>
+<h3 id="删除所有合并到了master的分支"><a href="#删除所有合并到了master的分支" class="headerlink" title="删除所有合并到了master的分支"></a>删除所有合并到了master的分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch --merged | grep -v <span class="string">'\*'</span> | xargs -n 1 git branch <span class="_">-d</span></span><br></pre></td></tr></table></figure>
+<h3 id="跟踪远程分支"><a href="#跟踪远程分支" class="headerlink" title="跟踪远程分支"></a>跟踪远程分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -u origin/mybranch</span><br></pre></td></tr></table></figure>
+<h3 id="撤销本地修改"><a href="#撤销本地修改" class="headerlink" title="撤销本地修改"></a>撤销本地修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- &lt;file_name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="修改远端仓库url-如origin"><a href="#修改远端仓库url-如origin" class="headerlink" title="修改远端仓库url(如origin)"></a>修改远端仓库url(如origin)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote <span class="built_in">set</span>-url origin &lt;URL&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="提交某个文件的部分修改"><a href="#提交某个文件的部分修改" class="headerlink" title="提交某个文件的部分修改"></a>提交某个文件的部分修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add -p</span><br></pre></td></tr></table></figure>
+<h3 id="检查最近几周内的变更"><a href="#检查最近几周内的变更" class="headerlink" title="检查最近几周内的变更"></a>检查最近几周内的变更</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git whatchanged --since=<span class="string">'3 weeks ago'</span></span><br></pre></td></tr></table></figure>
+<h3 id="选择需要的提交"><a href="#选择需要的提交" class="headerlink" title="选择需要的提交"></a>选择需要的提交</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git cherry-pick &lt;commit-ish&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="查看所有track的文件和未track的文件"><a href="#查看所有track的文件和未track的文件" class="headerlink" title="查看所有track的文件和未track的文件"></a>查看所有track的文件和未track的文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git ls-files -t</span><br><span class="line">$ git ls-files --others</span><br></pre></td></tr></table></figure>
+<h3 id="强制删除未track的文件-amp-文件夹"><a href="#强制删除未track的文件-amp-文件夹" class="headerlink" title="强制删除未track的文件 &amp; 文件夹"></a>强制删除未track的文件 &amp; 文件夹</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git clean <span class="_">-f</span></span><br><span class="line">$ git clean -df</span><br></pre></td></tr></table></figure>
+<h3 id="更新所有子模块"><a href="#更新所有子模块" class="headerlink" title="更新所有子模块"></a>更新所有子模块</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git submodule foreach git pull</span><br></pre></td></tr></table></figure>
+<h3 id="查看需要合并到master的commit"><a href="#查看需要合并到master的commit" class="headerlink" title="查看需要合并到master的commit"></a>查看需要合并到master的commit</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git cherry -v master</span><br><span class="line">$ git cherry -v master &lt;branch-to-be-merged&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -m [&lt;old-branch-name&gt;] &lt;new-branch-name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="打包分支"><a href="#打包分支" class="headerlink" title="打包分支"></a>打包分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git archive master --format=zip --output=master.zip</span><br></pre></td></tr></table></figure>
+<h3 id="去除远端已删除分支的引用"><a href="#去除远端已删除分支的引用" class="headerlink" title="去除远端已删除分支的引用"></a>去除远端已删除分支的引用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch -p</span><br></pre></td></tr></table></figure>
+<h3 id="获取初始提交的hash值"><a href="#获取初始提交的hash值" class="headerlink" title="获取初始提交的hash值"></a>获取初始提交的hash值</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rev-list --reverse HEAD | head -1</span><br></pre></td></tr></table></figure>
+<h3 id="将分支和历史打包到文件"><a href="#将分支和历史打包到文件" class="headerlink" title="将分支和历史打包到文件"></a>将分支和历史打包到文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git bundle create &lt;file&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="从打包文件中导入"><a href="#从打包文件中导入" class="headerlink" title="从打包文件中导入"></a>从打包文件中导入</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> repo.bundle &lt;repo-dir&gt; -b &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="获取当前分支名字"><a href="#获取当前分支名字" class="headerlink" title="获取当前分支名字"></a>获取当前分支名字</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rev-parse --abbrev-ref HEAD</span><br></pre></td></tr></table></figure>
+<h3 id="rebase前stash内容"><a href="#rebase前stash内容" class="headerlink" title="rebase前stash内容"></a>rebase前stash内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --autostash</span><br></pre></td></tr></table></figure>
+<h3 id="目前分支的最新tag"><a href="#目前分支的最新tag" class="headerlink" title="目前分支的最新tag"></a>目前分支的最新tag</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git describe --tags --abbrev=0</span><br></pre></td></tr></table></figure>
+<h3 id="同一行内diff"><a href="#同一行内diff" class="headerlink" title="同一行内diff"></a>同一行内diff</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff --word-diff</span><br></pre></td></tr></table></figure>
+<h3 id="清楚-gitignore里的文件"><a href="#清楚-gitignore里的文件" class="headerlink" title="清楚.gitignore里的文件"></a>清楚.gitignore里的文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clean -X <span class="_">-f</span></span><br></pre></td></tr></table></figure>
+<h3 id="恢复删除掉的文件"><a href="#恢复删除掉的文件" class="headerlink" title="恢复删除掉的文件"></a>恢复删除掉的文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout &lt;deleting_commit&gt;^ -- &lt;file_path&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="将特定文件恢复到某个提交的版本"><a href="#将特定文件恢复到某个提交的版本" class="headerlink" title="将特定文件恢复到某个提交的版本"></a>将特定文件恢复到某个提交的版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout &lt;commit-ish&gt; -- &lt;file_path&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="pull时使用rebase代替merge"><a href="#pull时使用rebase代替merge" class="headerlink" title="pull时使用rebase代替merge"></a>pull时使用rebase代替merge</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global branch.autosetuprebase always</span><br></pre></td></tr></table></figure>
+<h3 id="git所有配置"><a href="#git所有配置" class="headerlink" title="git所有配置"></a>git所有配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list</span><br></pre></td></tr></table></figure>
+<h3 id="设置大小写敏感"><a href="#设置大小写敏感" class="headerlink" title="设置大小写敏感"></a>设置大小写敏感</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global core.ignorecase <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<h3 id="git命令自动修正"><a href="#git命令自动修正" class="headerlink" title="git命令自动修正"></a>git命令自动修正</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global help.autocorrect 1</span><br></pre></td></tr></table></figure>
+<h3 id="标记提交为之前提交的fix"><a href="#标记提交为之前提交的fix" class="headerlink" title="标记提交为之前提交的fix"></a>标记提交为之前提交的fix</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --fixup &lt;SHA-1&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="将标记为fix的提交自动合并到对应的提交里"><a href="#将标记为fix的提交自动合并到对应的提交里" class="headerlink" title="将标记为fix的提交自动合并到对应的提交里"></a>将标记为fix的提交自动合并到对应的提交里</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i --autosquash</span><br></pre></td></tr></table></figure>
+<h3 id="ignore文件的状态"><a href="#ignore文件的状态" class="headerlink" title="ignore文件的状态"></a>ignore文件的状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status --ignored</span><br></pre></td></tr></table></figure>
+<h3 id="branch1有，但是branch2没有的提交"><a href="#branch1有，但是branch2没有的提交" class="headerlink" title="branch1有，但是branch2没有的提交"></a>branch1有，但是branch2没有的提交</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> Branch1 ^Branch2</span><br></pre></td></tr></table></figure>
+<h3 id="显示未压缩对象数量和磁盘消耗"><a href="#显示未压缩对象数量和磁盘消耗" class="headerlink" title="显示未压缩对象数量和磁盘消耗"></a>显示未压缩对象数量和磁盘消耗</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git count-objects --human-readable</span><br></pre></td></tr></table></figure>
+<h3 id="从对象数据库中去除所有不可及的对象"><a href="#从对象数据库中去除所有不可及的对象" class="headerlink" title="从对象数据库中去除所有不可及的对象"></a>从对象数据库中去除所有不可及的对象</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git gc --prune=now --aggressive</span><br></pre></td></tr></table></figure>
+<h3 id="新建一个没有历史的分支"><a href="#新建一个没有历史的分支" class="headerlink" title="新建一个没有历史的分支"></a>新建一个没有历史的分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout --orphan &lt;branch_name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="对staged的文件做diff"><a href="#对staged的文件做diff" class="headerlink" title="对staged的文件做diff"></a>对staged的文件做diff</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff --staged</span><br></pre></td></tr></table></figure>
+<h3 id="查看其它分支的特定文件"><a href="#查看其它分支的特定文件" class="headerlink" title="查看其它分支的特定文件"></a>查看其它分支的特定文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git show &lt;banch_name&gt;:&lt;file_name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="查看未合并到当前分支的分支"><a href="#查看未合并到当前分支的分支" class="headerlink" title="查看未合并到当前分支的分支"></a>查看未合并到当前分支的分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch --no-merged</span><br></pre></td></tr></table></figure>
+<h3 id="只显示root和merge提交"><a href="#只显示root和merge提交" class="headerlink" title="只显示root和merge提交"></a>只显示root和merge提交</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --first-parent</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="https://mobilecodec.alipay.com/show.htm?code=aex01803joq28vp0qmo1eee&picSize=430" alt="Yichao Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/git/" rel="tag">#git</a>
+          
+            <a href="/blog/tags/cli/" rel="tag">#cli</a>
+          
+            <a href="/blog/tags/tools/" rel="tag">#tools</a>
+          
+        </div>
+      
+
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://img.alicdn.com/tps/TB12oJWKpXXXXX0XXXXXXXXXXXX-960-678.jpg_200x200"
+               alt="Yichao" />
+          <p class="site-author-name" itemprop="name">Yichao</p>
+          <p class="site-description motion-element" itemprop="description">Don't know what to say.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#直至某个特定提交，所有文件列表"><span class="nav-number">1.</span> <span class="nav-text">直至某个特定提交，所有文件列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出冲突文件"><span class="nav-number">2.</span> <span class="nav-text">列出冲突文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一次提交中所有改变的文件"><span class="nav-number">3.</span> <span class="nav-text">一次提交中所有改变的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有合并到了master的分支"><span class="nav-number">4.</span> <span class="nav-text">列出所有合并到了master的分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除所有合并到了master的分支"><span class="nav-number">5.</span> <span class="nav-text">删除所有合并到了master的分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跟踪远程分支"><span class="nav-number">6.</span> <span class="nav-text">跟踪远程分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#撤销本地修改"><span class="nav-number">7.</span> <span class="nav-text">撤销本地修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改远端仓库url-如origin"><span class="nav-number">8.</span> <span class="nav-text">修改远端仓库url(如origin)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交某个文件的部分修改"><span class="nav-number">9.</span> <span class="nav-text">提交某个文件的部分修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查最近几周内的变更"><span class="nav-number">10.</span> <span class="nav-text">检查最近几周内的变更</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择需要的提交"><span class="nav-number">11.</span> <span class="nav-text">选择需要的提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看所有track的文件和未track的文件"><span class="nav-number">12.</span> <span class="nav-text">查看所有track的文件和未track的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制删除未track的文件-amp-文件夹"><span class="nav-number">13.</span> <span class="nav-text">强制删除未track的文件 & 文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新所有子模块"><span class="nav-number">14.</span> <span class="nav-text">更新所有子模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看需要合并到master的commit"><span class="nav-number">15.</span> <span class="nav-text">查看需要合并到master的commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重命名分支"><span class="nav-number">16.</span> <span class="nav-text">重命名分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包分支"><span class="nav-number">17.</span> <span class="nav-text">打包分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#去除远端已删除分支的引用"><span class="nav-number">18.</span> <span class="nav-text">去除远端已删除分支的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取初始提交的hash值"><span class="nav-number">19.</span> <span class="nav-text">获取初始提交的hash值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将分支和历史打包到文件"><span class="nav-number">20.</span> <span class="nav-text">将分支和历史打包到文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从打包文件中导入"><span class="nav-number">21.</span> <span class="nav-text">从打包文件中导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前分支名字"><span class="nav-number">22.</span> <span class="nav-text">获取当前分支名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rebase前stash内容"><span class="nav-number">23.</span> <span class="nav-text">rebase前stash内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目前分支的最新tag"><span class="nav-number">24.</span> <span class="nav-text">目前分支的最新tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同一行内diff"><span class="nav-number">25.</span> <span class="nav-text">同一行内diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清楚-gitignore里的文件"><span class="nav-number">26.</span> <span class="nav-text">清楚.gitignore里的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#恢复删除掉的文件"><span class="nav-number">27.</span> <span class="nav-text">恢复删除掉的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将特定文件恢复到某个提交的版本"><span class="nav-number">28.</span> <span class="nav-text">将特定文件恢复到某个提交的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pull时使用rebase代替merge"><span class="nav-number">29.</span> <span class="nav-text">pull时使用rebase代替merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git所有配置"><span class="nav-number">30.</span> <span class="nav-text">git所有配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置大小写敏感"><span class="nav-number">31.</span> <span class="nav-text">设置大小写敏感</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git命令自动修正"><span class="nav-number">32.</span> <span class="nav-text">git命令自动修正</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记提交为之前提交的fix"><span class="nav-number">33.</span> <span class="nav-text">标记提交为之前提交的fix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将标记为fix的提交自动合并到对应的提交里"><span class="nav-number">34.</span> <span class="nav-text">将标记为fix的提交自动合并到对应的提交里</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ignore文件的状态"><span class="nav-number">35.</span> <span class="nav-text">ignore文件的状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#branch1有，但是branch2没有的提交"><span class="nav-number">36.</span> <span class="nav-text">branch1有，但是branch2没有的提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示未压缩对象数量和磁盘消耗"><span class="nav-number">37.</span> <span class="nav-text">显示未压缩对象数量和磁盘消耗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从对象数据库中去除所有不可及的对象"><span class="nav-number">38.</span> <span class="nav-text">从对象数据库中去除所有不可及的对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建一个没有历史的分支"><span class="nav-number">39.</span> <span class="nav-text">新建一个没有历史的分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对staged的文件做diff"><span class="nav-number">40.</span> <span class="nav-text">对staged的文件做diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看其它分支的特定文件"><span class="nav-number">41.</span> <span class="nav-text">查看其它分支的特定文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看未合并到当前分支的分支"><span class="nav-number">42.</span> <span class="nav-text">查看未合并到当前分支的分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只显示root和merge提交"><span class="nav-number">43.</span> <span class="nav-text">只显示root和merge提交</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yichao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>
